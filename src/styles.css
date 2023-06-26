@@ -32,18 +32,18 @@ h1 {
   text-align: center;
 }
 
-.lowEmployment {
-  background-color: #ff9e9e;
-}
-
-.highEmployment {
-  background-color: #abffbd;
-}
-
 tr {
   background-color: #ffffff;
 }
 
 tr:nth-of-type(2n) {
   background-color: #f2f2f2;
+}
+
+.lowEmployment {
+  background-color: #ff9e9e !important;
+}
+
+.highEmployment {
+  background-color: #abffbd !important;
 }

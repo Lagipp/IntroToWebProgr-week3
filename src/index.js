@@ -27,7 +27,7 @@ fetch(url_1)
       let newPopulation = document.createElement("td");
 
       newMunicipality.innerText = municipalities[i];
-      newPopulation.innerHTML = +populations[i];
+      newPopulation.innerText = +populations[i];
 
       newTr.appendChild(newMunicipality);
       newTr.appendChild(newPopulation);
@@ -50,23 +50,16 @@ fetch(url_2)
 
       employmentTd.innerText = employment[j];
 
-      let x = (+employment[j] / existingTr.children[1].innerText) * 100;
-
+      let x = (employment[j] / existingTr.lastChild.innerText) * 100;
       let rounded = x.toFixed(2);
-
-      // console.log(existingTr.lastChild.innerText);
 
       let employmentRateTd = document.createElement("td");
       employmentRateTd.innerText = rounded + "%";
 
       if (x < 25) existingTr.setAttribute("class", "lowEmployment");
-      if (x > 45) existingTr.setAttribute("class", "highEmployment");
-
-      // employmentRateValue < 25
-      //   ? existingTr.setAttribute("class", "lowEmployment")
-      //   : employmentRateValue > 45
-      //   ? existingTr.setAttribute("class", "highEmployment")
-      //   : existingTr.setAttribute("class", " ")
+      else if (x > 45) existingTr.setAttribute("class", "highEmployment");
+      else {
+      }
 
       existingTr.lastChild.after(employmentTd);
       existingTr.lastChild.after(employmentRateTd);
