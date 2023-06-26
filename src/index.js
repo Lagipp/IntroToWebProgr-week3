@@ -27,7 +27,7 @@ fetch(url_1)
       let newPopulation = document.createElement("td");
 
       newMunicipality.innerText = municipalities[i];
-      newPopulation.innerHTML = populations[i];
+      newPopulation.innerHTML = +populations[i];
 
       newTr.appendChild(newMunicipality);
       newTr.appendChild(newPopulation);
@@ -40,32 +40,34 @@ fetch(url_1)
 fetch(url_2)
   .then((res) => res.json())
   .then((data) => {
-    //console.log(data);
-    const employmentAmounts = Object.values(data.dataset.value);
+    const employment = Object.values(data.dataset.value);
 
     let j = 0;
 
-    while (employmentAmounts[j] !== undefined) {
+    while (employment[j] !== undefined) {
       let existingTr = document.getElementById(`id${j}`);
       let employmentTd = document.createElement("td");
 
-      employmentTd.innerText = employmentAmounts[j];
+      employmentTd.innerText = employment[j];
 
-      let employmentRateValue = (
-        (employmentAmounts[j] / existingTr.lastChild.innerText) *
-        100
-      ).toFixed(2);
+      let x = (+employment[j] / existingTr.children[1].innerText) * 100;
+
+      let rounded = x.toFixed(2);
 
       // console.log(existingTr.lastChild.innerText);
 
       let employmentRateTd = document.createElement("td");
-      employmentRateTd.innerText = employmentRateValue + "%";
+      employmentRateTd.innerText = rounded + "%";
 
-      employmentRateValue < 25
-        ? existingTr.setAttribute("class", "lowEmployment")
-        : employmentRateValue > 45
-        ? existingTr.setAttribute("class", "highEmployment")
-        : existingTr.setAttribute("class", " ");
+      if (x < 25) existingTr.setAttribute("class", "lowEmployment");
+      if (x > 45) existingTr.setAttribute("class", "highEmployment");
+
+      // employmentRateValue < 25
+      //   ? existingTr.setAttribute("class", "lowEmployment")
+      //   : employmentRateValue > 45
+      //   ? existingTr.setAttribute("class", "highEmployment")
+      //   : existingTr.setAttribute("class", " ")
+
       existingTr.lastChild.after(employmentTd);
       existingTr.lastChild.after(employmentRateTd);
       j++;
